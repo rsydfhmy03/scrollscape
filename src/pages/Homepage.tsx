@@ -1,30 +1,54 @@
 // src/pages/HomePage.tsx
-import { useEffect } from 'react';
+import { useEffect, useRef, useCallback, type RefObject } from 'react';
 import { useImageStore } from '../store/store';
 import ImageGrid from '../components/ImageGrid/ImageGrid';
+import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
 
 const HomePage = () => {
-  const { images, status, error, fetchImages } = useImageStore();
+  const { images, status, error, fetchImages, currentPage } = useImageStore();
+
+  const loaderRef = useRef<HTMLDivElement>(null);
+
+  const loadMoreImages = useCallback(() => {
+    if (status !== 'loading') {
+      fetchImages(currentPage + 1);
+    }
+  }, [currentPage, fetchImages, status]);
+
+  useInfiniteScroll({
+    targetRef: loaderRef as RefObject<HTMLElement>,
+    callback: loadMoreImages,
+    canFetchMore: status !== 'loading', 
+  });
 
   useEffect(() => {
-    // Hanya fetch jika images masih kosong
-    if (images.length === 0) {
+    if (images.length === 0 && status === 'idle') {
       fetchImages(1);
     }
-  }, [fetchImages, images.length]);
+  }, [fetchImages, images.length, status]);
 
   return (
     <main className="container mx-auto px-4 pb-12">
       {status === 'loading' && images.length === 0 && (
-        <p className="text-center text-neon-cyan animate-pulse">Scanning the network...</p>
-      )}
-      {status === 'error' && (
-        <p className="text-center text-red-500">
-          // Network Error: {error}
+        <p className="text-center text-neon-cyan animate-pulse text-lg">
+          Scanning the network for visual data...
         </p>
       )}
-      {images.length > 0 && <ImageGrid images={images} />}
 
+      {status === 'error' && (
+        <p className="text-center text-red-500 font-mono">
+          // Network Error: Connection timed out. {error}
+        </p>
+      )}
+
+      <ImageGrid images={images} />
+      <div ref={loaderRef} className="h-10" />
+
+      {status === 'loading' && images.length > 0 && (
+        <p className="text-center text-neon-cyan animate-pulse">
+          Loading more assets...
+        </p>
+      )}
     </main>
   );
 };
