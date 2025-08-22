@@ -1,1 +1,30 @@
 @import "tailwindcss";
+
+/* Manual utility classes */
+.font-sans {
+  font-family: "Roboto Mono", system-ui, sans-serif;
+}
+
+.text-light-slate {
+  color: #c8d3f0;
+}
+
+.bg-dark-void {
+  background-color: #0D1117;
+}
+
+.text-neon-cyan {
+  color: #00E5FF;
+}
+
+.bg-neon-cyan {
+  background-color: #00E5FF;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    color: var(--color-light-slate);
+    background-color: var(--color-dark-void);
+  }
+}
