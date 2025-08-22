@@ -1,1 +1,53 @@
 @import "tailwindcss";
+
+/* Manual utility classes */
+.font-sans {
+  font-family: "Roboto Mono", system-ui, sans-serif;
+}
+
+.text-light-slate {
+  color: #c8d3f0;
+}
+
+.bg-dark-void {
+  background-color: #0D1117;
+}
+
+.text-neon-cyan {
+  color: #00E5FF;
+}
+
+.bg-neon-cyan {
+  background-color: #00E5FF;
+}
+
+.glitch {
+    position: relative;
+    text-shadow: 0.05em 0 0 rgba(0, 229, 255, 0.75), -0.05em 0 0 rgba(255,0,0,0.75);
+}
+
+@layer base {
+  /* html {
+    font-family: var(--font-sans);
+    color: var(--color-light-slate);
+    background-color: var(--color-dark-void);
+  } */
+    body {
+    background-color: #0D1117;
+    background-image: radial-gradient(circle at 1% 1%, #00e5ff20 1px, transparent 0), radial-gradient(circle at 99% 99%, #00e5ff20 1px, transparent 0);
+    background-size: 40px 40px;
+    color: #c8d3f0;
+    font-family: 'Roboto Mono', monospace;
+    }
+    body::-webkit-scrollbar {
+    width: 8px;
+    }
+    body::-webkit-scrollbar-track {
+    background: #0D1117;
+    }
+    body::-webkit-scrollbar-thumb {
+    background-color: #00E5FF;
+    border-radius: 6px;
+    border: 2px solid #0D1117;
+    }
+}
