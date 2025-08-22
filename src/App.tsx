@@ -1,10 +1,11 @@
 import HomePage from "./pages/Homepage"
+import Header from "./components/Header/Header"
+import CursorSpotlight from "./components/common/CursorSpotlight"
 function App() {
   return (
-    <div className="bg-dark-void text-light-slate min-h-screen font-sans">
-      <h1 className="text-3xl font-bold text-center py-8">
-        Scrollscape
-      </h1>
+    <div className="min-h-screen">
+      <CursorSpotlight />
+      <Header/>
       <HomePage/>
     </div>
   )

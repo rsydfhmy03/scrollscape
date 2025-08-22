@@ -14,17 +14,19 @@ interface ImageCardProps {
 const ImageCard = ({ image }: ImageCardProps) => {
   return (
     <motion.div
-      className="group relative overflow-hidden rounded-lg shadow-lg"
+      className="group relative overflow-hidden rounded-lg shadow-lg 
+                 border border-neon-cyan/20 
+                 bg-slate-500/10 backdrop-blur-md" 
       variants={cardVariants}
-      whileHover={{ scale: 1.05 }} 
+      whileHover={{ scale: 1.05, y: -5 }} 
       transition={{ duration: 0.3 }}
     >
-      <div className="absolute inset-0 bg-white/5 backdrop-blur-sm border border-neon-cyan/20 rounded-lg"></div>
+      {/* <div className="absolute inset-0 bg-white/5 backdrop-blur-sm border border-neon-cyan/20 rounded-lg"></div> */}
 
       <img
         src={image.urls.small}
         alt={image.alt_description || 'Unsplash Image'}
-        className="relative w-full h-80 object-cover"
+       className="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-500"
       />
 
       <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">

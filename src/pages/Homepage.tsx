@@ -28,7 +28,7 @@ const HomePage = () => {
   }, [fetchImages, images.length, status]);
 
   return (
-    <main className="container mx-auto px-4 pb-12">
+    <main className="container mx-auto px-4 py-10 pb-12">
       {status === 'loading' && images.length === 0 && (
         <p className="text-center text-neon-cyan animate-pulse text-lg">
           Scanning the network for visual data...
