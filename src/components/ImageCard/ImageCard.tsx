@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import type { UnsplashImage } from '../../types/api';
-
+import { useImageStore } from '../../store/store';
 
 const cardVariants = {
   hidden: { opacity: 0, y: 50 },
@@ -12,8 +12,10 @@ interface ImageCardProps {
 }
 
 const ImageCard = ({ image }: ImageCardProps) => {
+  const selectImage = useImageStore((state) => state.selectImage);
   return (
     <motion.div
+      onClick={() => selectImage(image)}
       className="group relative overflow-hidden rounded-lg shadow-lg 
                  border border-neon-cyan/20 
                  bg-slate-500/10 backdrop-blur-md" 
