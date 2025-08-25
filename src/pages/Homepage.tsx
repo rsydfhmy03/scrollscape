@@ -3,17 +3,27 @@ import { useEffect, useRef, useCallback, type RefObject } from 'react';
 import { useImageStore } from '../store/store';
 import ImageGrid from '../components/ImageGrid/ImageGrid';
 import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
+import type { UnsplashImage } from '../types/api';
 
 const HomePage = () => {
-  const { images, status, error, fetchImages, currentPage } = useImageStore();
+  const { 
+    images,searchImages , searchImagesByTerm, mode, status, error, 
+    fetchImages, searchImages: triggerSearch, currentPage, searchCurrentPage, searchTerm 
+  } = useImageStore();
 
   const loaderRef = useRef<HTMLDivElement>(null);
 
+  const imagesToDisplay = mode === 'search' ? searchImages : images;
+
   const loadMoreImages = useCallback(() => {
     if (status !== 'loading') {
-      fetchImages(currentPage + 1);
+      if (mode === 'search') {
+        searchImagesByTerm(); 
+      } else {
+        fetchImages(currentPage + 1);
+      }
     }
-  }, [currentPage, fetchImages, status]);
+  }, [status, mode, searchImagesByTerm, fetchImages, currentPage]);
 
   useInfiniteScroll({
     targetRef: loaderRef as RefObject<HTMLElement>,
@@ -41,8 +51,17 @@ const HomePage = () => {
         </p>
       )}
 
-      <ImageGrid images={images} />
-      <div ref={loaderRef} className="h-10" />
+      {/* <ImageGrid images={images} />
+      <div ref={loaderRef} className="h-10" /> */}
+       {imagesToDisplay.length > 0 ? (
+        <ImageGrid images={imagesToDisplay as UnsplashImage[]} />
+      ) : (
+        status === 'success' && mode === 'search' && (
+          <p className="text-center text-light-slate/70 font-mono">
+            // No assets found for query: "{searchTerm}"
+          </p>
+        )
+      )}
 
       {status === 'loading' && images.length > 0 && (
         <p className="text-center text-neon-cyan animate-pulse">

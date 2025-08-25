@@ -8,12 +8,16 @@ const api = axios.create({
     }
 });
 
-export const fetchImages = async (page : number) : Promise<UnsplashImage[]> => {
-    const response = await api.get<UnsplashImage[]>('/photos', {
-        params : {
-            page,
-            per_page : 12
-        }
-    });
-    return response.data;
+export const fetchImages = async (page: number): Promise<UnsplashImage[]> => {
+  const response = await api.get<UnsplashImage[]>('/photos', {
+    params: { page, per_page: 12 }
+  });
+  return response.data;
+}
+
+export const searchImages = async (term: string, page: number): Promise<UnsplashImage[]> => {
+  const response = await api.get<{ results: UnsplashImage[] }>('/search/photos', {
+    params: { query: term, page, per_page: 12 }
+  });
+  return response.data.results;
 }
