@@ -9,14 +9,14 @@ const SearchBar = () => {
   const debouncedSearchTerm = useDebounce(localSearchTerm, 500); // Jeda 500ms
 
   // Efek ini akan berjalan saat nilai debounced berubah
-    useEffect(() => {
-    setSearchTerm(debouncedSearchTerm);
-    if (debouncedSearchTerm) {
-        searchImagesByTerm(); 
-    } else {
-        clearSearch();
-    }
-    }, [debouncedSearchTerm, setSearchTerm, searchImagesByTerm, clearSearch]);
+  useEffect(() => {
+      setSearchTerm(debouncedSearchTerm); 
+      if (debouncedSearchTerm) {
+          searchImagesByTerm();
+      } else {
+          clearSearch();
+      }
+  }, [debouncedSearchTerm, setSearchTerm, searchImagesByTerm, clearSearch]);
 
   const handleClear = () => {
     setLocalSearchTerm('');

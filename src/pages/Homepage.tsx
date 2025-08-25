@@ -6,9 +6,9 @@ import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
 import type { UnsplashImage } from '../types/api';
 
 const HomePage = () => {
-  const { 
-    images,searchImages , searchImagesByTerm, mode, status, error, 
-    fetchImages, searchImages: triggerSearch, currentPage, searchCurrentPage, searchTerm 
+   const { 
+    images, searchImages, mode, status, error, searchTerm,
+    fetchImages, searchImagesByTerm 
   } = useImageStore();
 
   const loaderRef = useRef<HTMLDivElement>(null);
@@ -18,12 +18,12 @@ const HomePage = () => {
   const loadMoreImages = useCallback(() => {
     if (status !== 'loading') {
       if (mode === 'search') {
-        searchImagesByTerm(); 
+        searchImagesByTerm();
       } else {
-        fetchImages(currentPage + 1);
+        fetchImages();
       }
     }
-  }, [status, mode, searchImagesByTerm, fetchImages, currentPage]);
+  }, [status, mode, searchImagesByTerm, fetchImages]);;
 
   useInfiniteScroll({
     targetRef: loaderRef as RefObject<HTMLElement>,
@@ -33,7 +33,7 @@ const HomePage = () => {
 
   useEffect(() => {
     if (images.length === 0 && status === 'idle') {
-      fetchImages(1);
+      fetchImages();
     }
   }, [fetchImages, images.length, status]);
 
@@ -63,10 +63,11 @@ const HomePage = () => {
         )
       )}
 
-      {status === 'loading' && images.length > 0 && (
-        <p className="text-center text-neon-cyan animate-pulse">
-          Loading more assets...
-        </p>
+      <div ref={loaderRef} className="h-10" />
+      {status === 'loading' && imagesToDisplay.length > 0 && (
+          <p className="text-center text-neon-cyan animate-pulse">
+              Loading more assets...
+          </p>
       )}
     </main>
   );
