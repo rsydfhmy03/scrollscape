@@ -1,107 +1,107 @@
 # Scrollscape - Infinite Image Gallery 🖼️✨
 
-**Scrollscape** adalah sebuah aplikasi galeri gambar modern yang dirancang untuk memberikan pengalaman *infinite scroll* yang mulus dan imersif. Dibangun dengan estetika *hacker-inspired* dan antarmuka *glassmorphism*, proyek ini bukan hanya sekadar galeri, melainkan sebuah demonstrasi implementasi konsep front-end modern, manajemen state yang efisien, dan optimasi performa yang agresif.
+**Scrollscape** is a modern image gallery application designed to deliver a seamless and immersive infinite scrolling experience. Built with a hacker-inspired aesthetic and glassmorphism interface, this project serves not only as a functional gallery but as a demonstration of modern front-end implementation concepts, efficient state management, and aggressive performance optimization.
 
 [![Deploy with Vercel](https://vercel.com/button)](https://scrollscape-mitahudev.vercel.app/)
 
-**[➡️ Lihat Live Demo](https://scrollscape-mitahudev.vercel.app/)**
-
-<br/>
-
+**[➡️ Live Demo](https://scrollscape-mitahudev.vercel.app/)**
 
 ---
 
-## ## Fitur Utama
+## Core Features
 
--   🖼️ **Infinite Scroll Mulus**: Galeri secara otomatis memuat gambar baru saat pengguna menggulir ke bawah, menggunakan **Intersection Observer API** untuk efisiensi maksimal.
--   🔍 **Pencarian Cerdas**: Fitur pencarian *real-time* dengan implementasi *debouncing* untuk mencegah panggilan API yang berlebihan dan menjaga performa.
--   ❤️ **Sistem Favorit**: Pengguna dapat menyimpan gambar favorit yang datanya akan tersimpan secara persisten di `localStorage` browser.
--   🖱️ **Tampilan Detail Interaktif**: Modal *pop-up* yang indah untuk melihat detail gambar, lengkap dengan animasi dan informasi fotografer.
--   🎨 **UI Tematik & Responsif**: Antarmuka *glassmorphism* dengan tema *hacker* yang responsif di semua ukuran layar, dari desktop hingga mobile.
--   🚀 **Performa Tinggi**: Dioptimalkan secara agresif untuk mendapatkan skor Lighthouse yang tinggi, dengan fokus pada metrik **Core Web Vitals (LCP, FCP)**.
-
----
-
-## ## Tech Stack & Tools
-
-Proyek ini dibangun menggunakan ekosistem teknologi modern yang berfokus pada performa dan *developer experience*.
-
-| Kategori              | Teknologi                                                                                              |
-| --------------------- | ------------------------------------------------------------------------------------------------------ |
-| **Core** | React 18, TypeScript, Vite                                                                             |
-| **State Management** | Zustand (untuk state global yang minimalis dan efisien)                                                |
-| **Styling & Animasi** | Tailwind CSS (Utility-First), Framer Motion (Animasi), Lucide Icons                                      |
-| **Data Fetching** | Axios (HTTP Client), Unsplash API                                                                        |
-| **Linting & Format** | ESLint, Prettier                                                                                       |
-| **Testing** | Vitest, React Testing Library *(konfigurasi dasar disiapkan)* |
+-   🖼️ **Seamless Infinite Scroll**: Automatically loads new images as users scroll, utilizing the **Intersection Observer API** for maximum efficiency
+-   🔍 **Smart Search**: Real-time search functionality with debouncing implementation to prevent excessive API calls
+-   ❤️ **Favorites System**: Save preferred images with persistent data storage via `localStorage`
+-   🖱️ **Interactive Detail View**: Elegant modal pop-up for detailed image viewing with animations and photographer information
+-   🎨 **Thematic & Responsive UI**: Glassmorphism interface with hacker theme, fully responsive across all device sizes
+-   🚀 **High Performance**: Aggressively optimized for superior Lighthouse scores, focusing on **Core Web Vitals (LCP, FCP)**
 
 ---
 
-## ## Konsep Inti & Detail Implementasi
+## Technology Stack
 
-Proyek ini menerapkan beberapa konsep penting dalam pengembangan front-end modern:
+This project leverages modern technologies focused on performance and developer experience.
 
-### ### 1. Manajemen State Terpusat
--   Menggunakan **Zustand** untuk mengelola semua state global (data gambar, status loading, mode aplikasi, dll.). Pendekatan ini dipilih karena *boilerplate*-nya yang minimal dibandingkan Redux, namun tetap menyediakan *powerfull state management* dengan *hooks*.
-
-### ### 2. Custom Hooks untuk Logika Reusable
--   **`useInfiniteScroll`**: Mengabstraksi logika **Intersection Observer API** ke dalam sebuah *custom hook* yang bersih, membuat komponen `HomePage` tetap fokus pada tampilan.
--   **`useDebounce`**: Mencegah panggilan API pada setiap ketikan di `SearchBar`, meningkatkan efisiensi dan mengurangi beban pada API.
-
-### ### 3. Arsitektur Komponen yang Modular
--   Komponen dipecah berdasarkan fungsionalitasnya (`ImageCard`, `ImageGrid`, `SearchBar`, `ImageModal`) untuk memastikan kode yang bersih, mudah dikelola, dan dapat digunakan kembali.
-
----
-
-## ## Optimasi Performa & SEO
-
-Performa bukan sebuah fitur tambahan, melainkan inti dari proyek ini. Berikut adalah langkah-langkah optimasi yang telah diterapkan untuk mencapai skor Lighthouse yang tinggi:
-
-#### Performa
--   ✅ **Format Gambar Modern**: Meminta gambar dalam format **WebP** dari API untuk mengurangi ukuran file hingga 30-50% dibandingkan JPEG.
--   ✅ **Prioritas Pemuatan Gambar**: Gambar di atas layar (*above the fold*) dimuat secara agresif (`loading="eager"`, `fetchpriority="high"`) sementara gambar di bawahnya ditunda (`loading="lazy"`).
--   ✅ **Code Splitting**: Komponen berat seperti `ImageModal` dimuat secara dinamis menggunakan `React.lazy()` dan `Suspense`, mengurangi ukuran *bundle* JavaScript awal.
--   ✅ **Tree-Shaking untuk Animasi**: Menggunakan `LazyMotion` dari Framer Motion untuk memastikan hanya kode animasi yang diperlukan yang masuk ke dalam *bundle* produksi.
--   ✅ **Preconnect ke Domain Kritis**: Menggunakan `<link rel="preconnect">` untuk mempercepat koneksi awal ke CDN gambar (`images.unsplash.com`), mengurangi waktu LCP.
--   ✅ **Self-Hosted Fonts**: Meng-hosting file font secara lokal untuk menghilangkan permintaan jaringan eksternal yang memblokir render.
-
-#### SEO
--   ✅ **Meta Tags**: Menambahkan `meta description` yang relevan untuk meningkatkan tampilan di hasil pencarian.
--   ✅ **`robots.txt`**: Menyediakan file `robots.txt` yang valid untuk memandu *crawler* mesin pencari.
+| Category               | Technologies                                                                                             |
+| ---------------------- | -------------------------------------------------------------------------------------------------------- |
+| **Core Framework**     | React 18, TypeScript, Vite                                                                               |
+| **State Management**   | Zustand (minimalist and efficient global state management)                                               |
+| **Styling & Animation**| Tailwind CSS, Framer Motion, Lucide Icons                                                                |
+| **Data Fetching**      | Axios, Unsplash API                                                                                      |
+| **Code Quality**       | ESLint, Prettier                                                                                         |
+| **Testing**            | Vitest, React Testing Library *(basic configuration provided)*                                           |
 
 ---
 
-## ## Menjalankan Proyek Secara Lokal
+## Implementation Details
 
-Untuk menjalankan proyek ini di lingkungan lokal, ikuti langkah-langkah berikut:
+### Core Concepts
+This project implements several important concepts in modern front-end development:
 
-1.  **Clone repositori ini:**
+#### 1. Centralized State Management
+- Utilizes **Zustand** for all global state management (image data, loading status, application mode, etc.)
+- Chosen for minimal boilerplate compared to Redux while providing powerful state management via hooks
+
+#### 2. Custom Hooks for Reusable Logic
+- **`useInfiniteScroll`**: Abstracts **Intersection Observer API** logic into a clean custom hook
+- **`useDebounce`**: Prevents API calls on every keystroke in `SearchBar`, improving efficiency
+
+#### 3. Modular Component Architecture
+- Components divided by functionality (`ImageCard`, `ImageGrid`, `SearchBar`, `ImageModal`)
+- Ensures clean, maintainable, and reusable code structure
+
+---
+
+## Performance & SEO Optimization
+
+Performance is not an added feature but a core principle of this project.
+
+#### Performance Optimizations
+- ✅ **Modern Image Formats**: Requests images in **WebP** format from API (30-50% smaller than JPEG)
+- ✅ **Loading Prioritization**: Above-the-fold images load aggressively (`loading="eager"`, `fetchpriority="high"`)
+- ✅ **Lazy Loading**: Below-the-fold images deferred (`loading="lazy"`)
+- ✅ **Code Splitting**: Heavy components like `ImageModal` loaded dynamically via `React.lazy()` and `Suspense`
+- ✅ **Tree-Shaking for Animations**: Uses `LazyMotion` from Framer Motion to include only necessary animation code
+- ✅ **Preconnect to Critical Domains**: Uses `<link rel="preconnect">` for faster connections to image CDN
+- ✅ **Self-Hosted Fonts**: Local font hosting eliminates external network requests that block rendering
+
+#### SEO Enhancements
+- ✅ **Meta Tags**: Relevant `meta description` for improved search result appearance
+- ✅ **`robots.txt`**: Valid `robots.txt` file to guide search engine crawlers
+
+---
+
+## Local Development
+
+To run this project locally:
+
+1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/rsydfhmy03/scrollscape.git](https://github.com/rsydfhmy03/scrollscape.git)
+    git clone https://github.com/rsydfhmy03/scrollscape.git
     cd scrollscape
     ```
 
-2.  **Install dependensi:**
+2.  **Install dependencies:**
     ```bash
     npm install
     ```
 
-3.  **Setup Environment Variables:**
-    -   Buat file `.env` di direktori utama proyek.
-    -   Dapatkan **Access Key** dari [Unsplash Developers](https://unsplash.com/developers).
-    -   Tambahkan key tersebut ke file `.env`:
+3.  **Configure Environment Variables:**
+    - Create a `.env` file in the project root
+    - Obtain an **Access Key** from [Unsplash Developers](https://unsplash.com/developers)
+    - Add the key to the `.env` file:
         ```
         VITE_UNSPLASH_ACCESS_KEY=your_unsplash_access_key_here
         ```
 
-4.  **Jalankan development server:**
+4.  **Start the development server:**
     ```bash
     npm run dev
     ```
 
-5.  Buka `http://localhost:5173` (atau port yang tertera) di browser Anda.
-
-<br/>
+5.  Open `http://localhost:5173` (or the indicated port) in your browser.
 
 ---
-*Dibuat dengan ❤️ oleh [Fahmy Rosyadi - @mitahudev03](https://www.linkedin.com/in/mitahudev03/)*
+
+*Crafted with ❤️ by [Fahmy Rosyadi - @mitahudev03](https://www.linkedin.com/in/mitahudev03/)*
