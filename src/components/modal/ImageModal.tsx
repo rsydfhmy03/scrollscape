@@ -15,7 +15,7 @@ const modalVariants = {
 };
 
 const ImageModal = () => {
-  const { selectedImage, closeModal } = useImageStore();
+  const { selectedImage, closeModal, toggleFavorite, favoriteIds} = useImageStore();
 
 
   useEffect(() => {
@@ -31,6 +31,8 @@ const ImageModal = () => {
   }, [closeModal]);
 
   if (!selectedImage) return null; 
+
+  const isFavorite = favoriteIds.includes(selectedImage.id);
 
   return (
     <motion.div
@@ -60,6 +62,7 @@ const ImageModal = () => {
               src={selectedImage.urls.small}
               alt={selectedImage.alt_description || 'Selected image'}
               className="w-full h-full max-h-[80vh] object-contain"
+              loading='lazy'
             />
           </div>
 
@@ -67,7 +70,25 @@ const ImageModal = () => {
             <h2 className="text-xl text-neon-cyan font-bold break-words">
               {selectedImage.alt_description || 'Untitled'}
             </h2>
-            <div className="flex items-center gap-3 border-b border-neon-cyan/10 pb-4">
+            <div className="flex items-center justify-between text-light-slate pt-4 border-t border-neon-cyan/10">
+            {/* Info Likes */}
+            <div className="flex items-center gap-2">
+              <Heart className="text-red-500/80" size={18}/>
+              <span>{selectedImage.likes.toLocaleString()} Likes</span>
+            </div>
+
+            {/* Tombol Favorit Fungsional */}
+            <button 
+              onClick={() => toggleFavorite(selectedImage.id)}
+              className="flex items-center gap-2 px-4 py-2 rounded-md bg-white/10 hover:bg-neon-cyan/20 transition-colors border border-neon-cyan/20"
+              aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
+            >
+              <Heart 
+                size={18} 
+                className={`transition-all ${isFavorite ? 'fill-red-500 text-red-500' : 'fill-transparent text-light-slate'}`} 
+              />
+              <span>{isFavorite ? 'Favorited' : 'Favorite'}</span>
+            </button>
               <img src={selectedImage.user.profile_image.medium} alt={selectedImage.user.name} className="w-10 h-10 rounded-full border-2 border-neon-cyan/50" />
               <div>
                 <p className="font-bold text-base text-light-slate">{selectedImage.user.name}</p>

@@ -1,5 +1,21 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap; 
+  src: url('/src/assets/fonts/roboto-mono-v30-latin-regular.woff2') format('woff2'); 
+}
+
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/src/assets/fonts/roboto-mono-v30-latin-700.woff2') format('woff2'); 
+}
+
 /* Manual utility classes */
 .font-sans {
   font-family: "Roboto Mono", system-ui, sans-serif;
@@ -27,11 +43,7 @@
 }
 
 @layer base {
-  /* html {
-    font-family: var(--font-sans);
-    color: var(--color-light-slate);
-    background-color: var(--color-dark-void);
-  } */
+
     body {
     background-color: #0D1117;
     background-image: radial-gradient(circle at 1% 1%, #00e5ff20 1px, transparent 0), radial-gradient(circle at 99% 99%, #00e5ff20 1px, transparent 0);

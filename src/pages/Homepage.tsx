@@ -1,4 +1,3 @@
-// src/pages/HomePage.tsx
 import { useEffect, useRef, useCallback, type RefObject } from 'react';
 import { useImageStore } from '../store/store';
 import ImageGrid from '../components/ImageGrid/ImageGrid';
@@ -32,10 +31,32 @@ const HomePage = () => {
   });
 
   useEffect(() => {
+    const initialFetch = async () => {
+      await fetchImages();
+    };
+
     if (images.length === 0 && status === 'idle') {
-      fetchImages();
+      initialFetch();
     }
   }, [fetchImages, images.length, status]);
+
+  useEffect(() => {
+  if (images.length > 0) {
+    const lcpImage = images[0];
+    
+    // Buat elemen link untuk preload
+    const link = document.createElement('link');
+    link.rel = 'preload';
+    link.as = 'image';
+    link.href = lcpImage.urls.small; 
+    
+    document.head.appendChild(link);
+
+    return () => {
+      document.head.removeChild(link);
+    };
+  }
+}, [images]);
 
   return (
     <main className="container mx-auto px-4 py-10 pb-12">
