@@ -13,6 +13,7 @@ interface ImageState {
     searchTerm : string;
     searchImages : UnsplashImage[];
     searchCurrentPage : number;
+    favoriteIds: string[];
 
     // fetchImages: (page: number) => Promise<void>;
     fetchImages: () => Promise<void>;
@@ -22,6 +23,9 @@ interface ImageState {
     setSearchTerm: (term: string) => void;
     searchImagesByTerm: () => Promise<void>;
     clearSearch: () => void;
+
+    toggleFavorite: (imageId: string) => void;
+    loadFavorites: () => void;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -37,6 +41,8 @@ export const useImageStore = create<ImageState>((set, get) => ({
     searchTerm : '',
     searchImages : [],
     searchCurrentPage : 1,
+
+    favoriteIds: [],
 
     fetchImages: async () => {
     const { currentPage } = get();
@@ -97,5 +103,30 @@ export const useImageStore = create<ImageState>((set, get) => ({
         mode: 'browse',
         status: 'idle',
     })
-  }
+  },
+
+  toggleFavorite: (imageId: string) => {
+    const { favoriteIds } = get();
+    const isFavorite = favoriteIds.includes(imageId);
+
+    // Jika sudah ada, hapus. Jika belum, tambahkan.
+    const newFavorites = isFavorite
+      ? favoriteIds.filter((id) => id !== imageId)
+      : [...favoriteIds, imageId];
+
+    // Simpan ke localStorage
+    localStorage.setItem('favoriteImageIds', JSON.stringify(newFavorites));
+
+    // Update state
+    set({ favoriteIds: newFavorites });
+  },
+
+  loadFavorites: () => {
+    const savedFavorites = localStorage.getItem('favoriteImageIds');
+    if (savedFavorites) {
+      set({ favoriteIds: JSON.parse(savedFavorites) });
+    }
+  },
 }))
+
+useImageStore.getState().loadFavorites();

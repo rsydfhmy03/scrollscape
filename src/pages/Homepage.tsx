@@ -1,4 +1,3 @@
-// src/pages/HomePage.tsx
 import { useEffect, useRef, useCallback, type RefObject } from 'react';
 import { useImageStore } from '../store/store';
 import ImageGrid from '../components/ImageGrid/ImageGrid';
