@@ -10,9 +10,10 @@ const cardVariants = {
 
 interface ImageCardProps {
   image: UnsplashImage;
+  priority?: boolean;
 }
 
-const ImageCard = ({ image }: ImageCardProps) => {
+const ImageCard = ({ image, priority = false }: ImageCardProps) => {
   const selectImage = useImageStore((state) => state.selectImage);
   const { favoriteIds, toggleFavorite } = useImageStore();
   const isFavorite = favoriteIds.includes(image.id);
@@ -39,6 +40,8 @@ const ImageCard = ({ image }: ImageCardProps) => {
         src={image.urls.small}
         alt={image.alt_description || 'Unsplash Image'}
        className="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-500"
+       loading={priority ? 'eager' : 'lazy'}
+       fetchPriority={priority ? 'high' : 'auto'}
       />
 
       <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">

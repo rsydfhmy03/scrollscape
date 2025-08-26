@@ -24,8 +24,12 @@ const ImageGrid = ({ images }: ImageGridProps) => {
       initial="hidden"
       animate="visible"
     >
-      {images.map((image) => (
-        <ImageCard key={image.id} image={image} />
+      {images.map((image, index) => (
+        <ImageCard 
+          key={image.id} 
+          image={image} 
+          priority={index < 4} 
+        />
       ))}
     </motion.div>
   );

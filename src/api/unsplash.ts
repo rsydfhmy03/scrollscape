@@ -8,16 +8,31 @@ const api = axios.create({
     }
 });
 
-export const fetchImages = async (page: number): Promise<UnsplashImage[]> => {
-  const response = await api.get<UnsplashImage[]>('/photos', {
-    params: { page, per_page: 12 }
+const addImageOptimizationParams = (params: object) => {
+  return {
+    ...params,
+    fm: 'webp', // Minta format WebP
+    q: 75,      // Minta kualitas 75 (keseimbangan bagus antara ukuran dan kualitas)
+  };
+};
+
+export const apiFetchImages = async (page: number): Promise<UnsplashImage[]> => {
+  const response = await api.get('/photos', {
+    params: addImageOptimizationParams({
+      page: page,
+      per_page: 12,
+    }),
   });
   return response.data;
-}
+};
 
-export const searchImages = async (term: string, page: number): Promise<UnsplashImage[]> => {
-  const response = await api.get<{ results: UnsplashImage[] }>('/search/photos', {
-    params: { query: term, page, per_page: 12 }
+export const apiSearchImages = async (query: string, page: number): Promise<UnsplashImage[]> => {
+  const response = await api.get('/search/photos', {
+    params: addImageOptimizationParams({
+      query: query,
+      page: page,
+      per_page: 12,
+    }),
   });
   return response.data.results;
-}
+};

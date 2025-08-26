@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { fetchImages as apiFetchImages, searchImages as apiSearchImages } from "../api/unsplash";
+import { apiFetchImages, apiSearchImages } from "../api/unsplash";
 import type { UnsplashImage } from "../types/api";
 
 interface ImageState {

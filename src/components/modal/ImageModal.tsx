@@ -62,6 +62,7 @@ const ImageModal = () => {
               src={selectedImage.urls.small}
               alt={selectedImage.alt_description || 'Selected image'}
               className="w-full h-full max-h-[80vh] object-contain"
+              loading='lazy'
             />
           </div>
 
